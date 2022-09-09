@@ -1,0 +1,14 @@
+//@import url("https://fonts.googleapis.com/css2?family=BIZ+UDGothic&display=swap");
+@font-face {
+  font-family: 'HanSerifJP-Bold';
+  src: url('/SourceHanSerifJP-Bold.woff');
+}
+body{
+  margin: 0px;
+  padding: 0px;
+  font-family: 'HanSerifJP-Bold', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #555555;
+  background-color: rgba(228, 228, 228, 0.49);
+}
