@@ -3,19 +3,17 @@ import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 
 const Home: NextPage = () => {
-  const textRef = useRef(null);
+  const refArray = useRef<HTMLDivElement[]>([]);
   useEffect(() => {
-    //const tl = gsap.timeline({ repeat: -1, repeatDelay: 1});
-    // tl.to(textRef.current, {
-    //   textShadow: "5px 5px 5px yellow",
-    //   duration: 5,
-    // });
-    // tl.to(textRef.current, {
-    //   textShadow: "5px 5px 5px #b0c0f8",
-    //   duration: 5,
-    //   top:50
-    // });
-  }, []);
+    const tl = gsap.timeline({ repeat: 1, repeatDelay: 1});
+    for(let i=0; i < refArray.current.length; i++){
+      tl.to(refArray.current[i], {
+        opacity: 1,
+        duration: 3,
+      });
+    }
+    
+  }, [refArray]);
   const CircleIcon: React.FC<{ thumbnail_url: string; width: number }> = ({
     thumbnail_url,
     width,
@@ -333,7 +331,7 @@ const Home: NextPage = () => {
       ),
     },
     {
-      theme: "新風/育成",
+      theme: "新風 育成",
       teamName: "東京世田谷キャッパーズ",
       iconId: 65,
       backgroundColor: "#0f7108",
@@ -379,12 +377,17 @@ const Home: NextPage = () => {
     <div
       style={{
         display: "flex",
-        height:685
+        height: 685,
       }}
     >
-      {teams.map((team) => (
+      {teams.map((team, idx) => (
         <div
+          ref={(ref) => {
+            if (!ref) return;
+            refArray.current[idx] = ref;
+          }}
           style={{
+            opacity:0,
             margin: 1,
             textShadow: "1px 1px 1px black",
             backgroundColor: team.backgroundColor,
@@ -397,7 +400,6 @@ const Home: NextPage = () => {
         >
           {team.image}
           <div
-            ref={textRef}
             style={{
               top: 5,
               left: 0,
@@ -411,7 +413,7 @@ const Home: NextPage = () => {
           >
             {team.theme}
           </div>
-          
+
           <div
             style={{
               bottom: 10,
@@ -426,7 +428,6 @@ const Home: NextPage = () => {
             {team.result}
           </div>
           <div
-            ref={textRef}
             style={{
               bottom: 10,
               right: 5,
